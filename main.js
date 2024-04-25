@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
    // animation for preview beige section
    const previewWaveTimeline = gsap.timeline();
    previewWaveTimeline.from('[data-preview-beigewave]', {
-      y: 'random(-150, -50)',
+      y: 'random(-230, -80)',
       // opacity: 'random(0.6, 0.9)',
       // ease: 'back.out(2)',
-      duration: 2.5,
+      duration: 1.5,
    });
    previewWaveTimeline.to('[data-preview-beigewave] img', {
       y: 'random(-50, -35)',
@@ -34,6 +34,55 @@ document.addEventListener('DOMContentLoaded', () => {
          start: '50% bottom',
          end: 'bottom top',
          scrub: true,
+      },
+   });
+
+   // uslugi section
+   const animListList = document.querySelectorAll('[data-small-rotate-anim]');
+   if (animListList && animListList.length > 0) {
+      animListList.forEach((item, index) => {
+         gsap.from(item, {
+            rotate: 'random(30, 45)' + 'deg',
+            opacity: 0.5,
+            scale: 'random(0.3, 0.6)',
+            ease: 'power4.out',
+            duration: 1,
+            delay: index % 2 === 0 ? 0 : 0.2,
+            scrollTrigger: {
+               trigger: item,
+               start: 'top 90%',
+               end: 'top 90%',
+               // scrub: true,
+            },
+         });
+      });
+   }
+
+   // promos section
+   gsap.from('[data-rotation-anim]', {
+      rotate: '180deg',
+      opacity: 0.5,
+      ease: 'power4.out',
+      duration: 1.5,
+      scrollTrigger: {
+         trigger: '[data-rotation-anim]',
+         start: 'top 90%',
+         end: 'top 90%',
+         // scrub: true,
+      },
+   });
+
+   gsap.from('[data-anim-from-bottom]', {
+      yPercent: 'random(30, 60)',
+      opacity: 0.6,
+      scale: 'random(0.7, 0.9)',
+      ease: 'power4.out',
+      duration: 1,
+      scrollTrigger: {
+         trigger: '[data-anim-from-bottom]',
+         start: 'top 95%',
+         end: 'top 95%',
+         // scrub: true,
       },
    });
 
