@@ -26,12 +26,23 @@ document.addEventListener('DOMContentLoaded', () => {
       yoyo: true,
    });
 
+   gsap.to('[data-preview-beigewave]', {
+      yPercent: 'random(-20, -10)',
+      ease: 'none',
+      scrollTrigger: {
+         trigger: '[data-preview-beigewave]',
+         start: '50% bottom',
+         end: 'bottom top',
+         scrub: true,
+      },
+   });
+
    // parallax animation
-   gsap.to('[data-small-parallax]', {
+   gsap.to('[data-parallax-down]', {
       yPercent: 'random(15, 23)',
       ease: 'none',
       scrollTrigger: {
-         trigger: '[data-small-parallax]',
+         trigger: '[data-parallax-down]',
          start: 'top bottom',
          end: 'bottom top',
          scrub: true,
@@ -60,11 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
    const animFlowerList = document.querySelectorAll('[data-anim-flower]');
    if (animFlowerList && animFlowerList.length > 0) {
       animFlowerList.forEach((flower) => {
-         const flowerTimeline = gsap.timeline();
+         let flowerWasAnimated = flower.dataset.animFlower === 'true' ? true : false;
+         let flowerAnimateImmediately = flower.dataset.animFlower === 'true' ? true : false;
+
+         const flowerTimeline = gsap.timeline({ paused: !flowerAnimateImmediately });
          flowerTimeline.from(flower, {
             rotate: 'random(-50, 50, 15)' + 'deg',
             scale: 'random(0.6, 0.8)',
-            opacity: 'random(0.6, 0.9)',
+            opacity: 'random(0.3, 0.6)',
             duration: 1.4,
          });
          flowerTimeline.to(flower, {
@@ -75,6 +89,17 @@ document.addEventListener('DOMContentLoaded', () => {
             repeat: -1,
             duration: 4,
             yoyo: true,
+         });
+
+         ScrollTrigger.create({
+            start: 0,
+            end: 'max',
+            onUpdate: () => {
+               if (ScrollTrigger.isInViewport(flower) && !flowerWasAnimated) {
+                  flowerTimeline.play();
+                  flowerWasAnimated = true;
+               }
+            },
          });
 
          gsap.to(flower, {

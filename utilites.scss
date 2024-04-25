@@ -56,6 +56,9 @@
    --white: #FFFFFF;
    --yellow: #FFCF00;
 
+   --link-transition: .1s ease-in-out;
+   --btn-transition: .2s ease-in-out;
+
    font-family: "Yantramanav", sans-serif;
    line-height: 1.2;
    font-weight: 400;
@@ -163,6 +166,18 @@ footer {
    background-color: var(--milk-bg);
 }
 
+.link {
+   &-element {
+      width: fit-content;
+      height: fit-content;
+      transition: all var(--link-transition);
+
+      &:hover {
+         color: var(--brown);
+      }
+   }
+}
+
 .btn {
    &-68 {
       padding: 0 30px;
@@ -173,12 +188,18 @@ footer {
       }
    }
 
+   &-44 {
+      padding: 0 22px;
+      height: 44px;
+   }
+
    &-32 {
       padding: 0 22px;
       height: 32px;
    }
 
    &-element {
+      width: fit-content;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -187,6 +208,43 @@ footer {
    &-brown {
       color: var(--white);
       background-color: var(--brown);
+      border: 1px solid var(--brown);
+      transition: all var(--btn-transition);
+
+      svg {
+         path {
+            transition: all var(--btn-transition);
+         }
+      }
+
+      &:hover {
+         color: var(--brown);
+         background-color: transparent;
+
+         svg {
+            path {
+               fill: var(--brown);
+            }
+         }
+      }
+   }
+
+   &-hollow {
+      color: var(--brown);
+      border: 1px solid var(--brown);
+      background-color: transparent;
+      transition: all var(--btn-transition);
+
+      &:hover {
+         color: var(--white);
+         background-color: var(--brown);
+
+         svg {
+            path {
+               fill: var(--white);
+            }
+         }
+      }
    }
 
    &-rounded {
@@ -199,26 +257,50 @@ footer {
       position: relative;
    }
 
-   // rotate to right
-   &-RR {
-      width: 351px;
-      height: 261px;
-      // transform: rotate(18deg);
+   &-350 {
+      --flower-width: 351px;
+      --flower-hegiht: 261px;
+      width: var(--flower-width);
+      height: var(--flower-hegiht);
 
       @media (max-width: 1439px) {
-         width: 279px;
-         height: 208px;
+         --flower-width: 279px;
+         --flower-hegiht: 208px;
       }
 
       @media (max-width: 719px) {
-         width: 322px;
-         height: 240px;
+         --flower-width: 322px;
+         --flower-hegiht: 240px;
       }
 
       @media (max-width: 479px) {
-         width: 177px;
-         height: 132px;
+         --flower-width: 177px;
+         --flower-hegiht: 132px;
       }
+   }
+
+   &-322 {
+      --flower-width: 322px;
+      --flower-hegiht: 296px;
+      width: var(--flower-width);
+      height: var(--flower-hegiht);
+
+      @media (max-width: 479px) {
+         --flower-width: 164px;
+         --flower-hegiht: 150px;
+      }
+   }
+}
+
+.promos-card {
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+
+   &_prices {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
    }
 }
 
@@ -227,128 +309,35 @@ footer {
 
 // typography
 .caption {
-   &-88 {
-      font-size: 88px;
-      font-weight: 700;
-      line-height: 120%;
-      text-transform: uppercase;
-      text-wrap: balance;
+   &-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+   }
 
-      @media (max-width: 1439px) {
-         font-size: 72px;
-      }
-
-      @media (max-width: 1023px) {
-         font-size: 64px;
-      }
+   &-64 {
+      font-size: 64px;
+      line-height: 1.2;
 
       @media (max-width: 719px) {
          font-size: 48px;
       }
 
       @media (max-width: 479px) {
+         font-size: 40px;
+      }
+   }
+
+   &-48 {
+      font-size: 48px;
+      line-height: 1.2;
+
+      @media (max-width: 719px) {
          font-size: 32px;
       }
 
-      @media (max-width: 374px) {
-         font-size: 28px;
-      }
-   }
-
-   &-32 {
-      font-size: 32px;
-      font-weight: bold;
-      line-height: 120%;
-      text-transform: uppercase;
-      text-wrap: balance;
-
-      @media (max-width: 1279px) {
-         font-size: 24px;
-      }
-
-      @media (max-width: 719px) {
-         font-size: 20px;
-
-         &.caption-32timer,
-         &.title {
-            font-size: 24px;
-         }
-      }
-
       @media (max-width: 479px) {
-         font-size: 16px;
-
-         &.caption-32timer,
-         &.title {
-            font-size: 24px;
-         }
-      }
-   }
-
-
-   &-24 {
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 120%;
-      text-transform: uppercase;
-      text-wrap: balance;
-
-      @media (max-width: 1919px) {
-         font-size: 20px;
-
-         &.caption-24timer {
-            font-size: 24px;
-         }
-      }
-
-      @media (max-width: 1279px) {
-         font-size: 18px;
-
-         &.caption-24timer {
-            font-size: 20px
-         }
-      }
-
-      @media (max-width: 719px) {
-         font-size: 16px;
-
-         &.caption-24timer {
-            font-size: 18px;
-         }
-      }
-   }
-
-   &-18 {
-      font-size: 18px;
-      font-weight: 600;
-      line-height: 120%;
-      text-wrap: balance;
-
-      @media (max-width: 1279px) {
-         font-size: 16px;
-
-         &.caption-18timer {
-            font-size: 18px;
-         }
-      }
-
-      @media (max-width: 1023px) {
-         font-size: 14px;
-
-         &.caption-18timer {
-            font-size: 18px;
-         }
-      }
-   }
-
-   &-16 {
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 120%;
-      text-wrap: balance;
-
-      @media (max-width: 1279px) {
-         font-size: 14px;
+         font-size: 24px;
       }
    }
 }
@@ -360,6 +349,18 @@ footer {
 
    &-white {
       color: var(--white);
+   }
+
+   &-brown {
+      color: var(--brown);
+   }
+
+   &-crossline {
+      text-decoration: line-through;
+   }
+
+   &-center {
+      text-align: center;
    }
 
    &-32 {
@@ -376,6 +377,15 @@ footer {
 
       @media (max-width: 479px) {
          font-size: 16px;
+      }
+   }
+
+   &-28 {
+      font-size: 28px;
+      line-height: 1.2;
+
+      @media (max-width: 479px) {
+         font-size: 24px;
       }
    }
 
@@ -403,6 +413,29 @@ footer {
 
    &-20 {
       font-size: 20px;
+      line-height: 1.2;
+
+      @media (max-width: 479px) {
+         font-size: 16px;
+      }
+   }
+
+   &-18 {
+      font-size: 18px;
+      line-height: 1.2;
+   }
+
+   &-14 {
+      font-size: 14px;
+      line-height: 1.2;
+
+      // @media (max-width: 479px) {
+      //    font-size: 12px;
+      // }
+   }
+
+   &-12 {
+      font-size: 12px;
       line-height: 1.2;
    }
 }
