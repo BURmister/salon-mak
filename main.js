@@ -1,8 +1,16 @@
+// gsap
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { EaselPlugin } from 'gsap/EaselPlugin';
 import { TextPlugin } from 'gsap/TextPlugin';
+
+// swiper
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 import './style.scss';
 
@@ -163,4 +171,24 @@ document.addEventListener('DOMContentLoaded', () => {
          });
       });
    }
+
+   const teammateSlider = new Swiper('[data-teammate-slider]', {
+      slidesPerView: 1,
+      // Navigation arrows
+      navigation: {
+         nextEl: '.swiper-button-next',
+         prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+         1024: {
+            slidesPerView: 2,
+         },
+         1280: {
+            slidesPerView: 3,
+         },
+         1920: {
+            slidesPerView: 4,
+         },
+      },
+   });
 });
