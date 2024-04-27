@@ -362,6 +362,7 @@
     row-gap: 17px;
 
     .usluga-item {
+      position: relative;
       display: flex;
       align-items: center;
       gap: 14px;
@@ -450,8 +451,6 @@
     }
 
     .swiper-wrapper {
-      display: flex;
-
       .swiper-slide {
         width: 100%;
         display: flex;
@@ -501,6 +500,7 @@
 .aboutwork-section,
 .takingcare-section,
 .team-section,
+.reviews-section,
 .waiting-section {
   @media (max-width: 719px) {
     .caption-48 {
@@ -716,7 +716,9 @@
           --video-height: 520px;
 
           >.btn-brown {
+            position: relative;
             display: flex;
+            z-index: 2;
           }
 
           .place-item_wrapper {
@@ -819,6 +821,12 @@
         align-self: flex-end;
       }
 
+      .ui-vector {
+        position: absolute;
+        top: -40px;
+        right: 0;
+      }
+
       .usluga-item_overlay {
         position: absolute;
         top: -30%;
@@ -838,17 +846,18 @@
 
   .section-overlay {
     --margin-bottom: 110px;
-    --wave-height: 280px;
+    --wave-top-height: 280px;
+    --wave-bottom-height: 320px;
 
     position: absolute;
-    top: calc(0px - var(--wave-height));
+    top: calc(0px - var(--wave-top-height));
     left: 0;
 
     display: flex;
     flex-direction: column;
 
     width: 100%;
-    height: calc(var(--wave-height) + 100% - var(--margin-bottom));
+    height: calc(var(--wave-top-height) + 100% - var(--margin-bottom) + var(--wave-bottom-height));
     z-index: -1;
 
     &_beige {
@@ -858,9 +867,14 @@
 
     &_wave {
       width: 100%;
-      height: var(--wave-height);
+      height: var(--wave-top-height);
       object-fit: cover;
       transform: translateY(30px);
+
+      &.wave-bottom {
+        height: var(--wave-bottom-height);
+        transform: translateY(-30px);
+      }
     }
   }
 
@@ -868,11 +882,18 @@
     .uslugi-list {
       column-gap: 80px;
       row-gap: 120px;
+
+      .usluga-item {
+        .ui-vector {
+          top: -30px;
+        }
+      }
     }
 
     .section-overlay {
       --margin-bottom: 140px;
-      --wave-height: 223px;
+      --wave-top-height: 223px;
+      --wave-bottom-height: 280px;
     }
   }
 
@@ -937,6 +958,10 @@
       .usluga-item {
         max-width: 250px;
 
+        .ui-vector {
+          top: -50px;
+        }
+
         .usluga-item_overlay {
           top: -60%;
           left: -60%;
@@ -954,12 +979,27 @@
   }
 }
 
+.takingcare-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .content-wrapper.caption-block {
+    width: 100%;
+  }
+
+  .content-wrapper.slider-block {
+    width: 100%;
+  }
+}
+
 .team-section {
   display: flex;
   flex-direction: column;
   gap: 60px;
 
   .large-content-wrapper {
+    // width: calc(100% - var(--wrapper-padding) * 2);
     width: 100%;
 
     // TODO: доделать слайдер 
@@ -1020,6 +1060,24 @@
         bottom: calc(-.5 * var(--flower-width));
       }
     }
+  }
+}
+
+.reviews-section {
+  margin-top: 75px;
+
+  .reviews-table_wrapper {
+    margin-top: 30px;
+  }
+
+  @media (max-width: 1279px) {
+    .reviews-table_wrapper {
+      margin-top: 15px;
+    }
+  }
+
+  @media (max-width: 719px) {
+    margin-top: 50px;
   }
 }
 
@@ -1102,6 +1160,14 @@
     flex-direction: column;
     gap: 28px;
 
+    .contacts-map {
+      position: relative;
+      height: 360px;
+      width: 100%;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
     .contacts-rec {
       display: flex;
       flex-direction: column;
@@ -1123,6 +1189,10 @@
 
     @media (max-width: 479px) {
       gap: 50px;
+
+      .contacts-map {
+        height: 330px;
+      }
     }
   }
 }

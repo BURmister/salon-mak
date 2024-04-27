@@ -7,7 +7,7 @@ import { TextPlugin } from 'gsap/TextPlugin';
 
 // swiper
 import Swiper from 'swiper';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
    previewWaveTimeline.to('[data-preview-beigewave] img', {
       y: 'random(-50, -35)',
       objectPosition: `random(0, 100)% 0%`,
-      duration: 4.5,
+      duration: 3,
       ease: 'back.inOut(1)',
       repeat: -1,
       yoyo: true,
@@ -120,6 +120,23 @@ document.addEventListener('DOMContentLoaded', () => {
       },
    });
 
+   const videoInPhone = document.querySelector('[data-phone-video]');
+   const videoInPhoneTrigger = document.querySelector('[data-phone-video-trigger]');
+   if (videoInPhone && videoInPhoneTrigger) {
+      let isPlayed = !!(videoInPhone.currentTime > 0 && !videoInPhone.paused && !videoInPhone.ended && videoInPhone.readyState > 2);
+
+      videoInPhoneTrigger.addEventListener('click', () => {
+         if (isPlayed) {
+            isPlayed = false;
+            videoInPhone.load();
+            videoInPhone.pause();
+         } else {
+            isPlayed = true;
+            videoInPhone.play();
+         }
+      });
+   }
+
    // workabout section
    gsap.from('[data-workabout-beigewave]', {
       y: 'random(230, 80)',
@@ -130,10 +147,18 @@ document.addEventListener('DOMContentLoaded', () => {
          end: 'bottom 95%',
       },
    });
-   gsap.to('[data-workabout-beigewave] img', {
+   gsap.to('[data-workabout-beigewave] .wave-top', {
       y: 'random(35, 50)',
       objectPosition: `random(0, 100)% 0%`,
-      duration: 4.5,
+      duration: 3,
+      ease: 'back.inOut(1)',
+      repeat: -1,
+      yoyo: true,
+   });
+   gsap.to('[data-workabout-beigewave] .wave-bottom', {
+      y: 'random(-50, -35)',
+      objectPosition: `random(0, 100)% 0%`,
+      duration: 3,
       ease: 'back.inOut(1)',
       repeat: -1,
       yoyo: true,
@@ -160,6 +185,13 @@ document.addEventListener('DOMContentLoaded', () => {
          });
       });
    }
+
+   gsap.to('[data-rotate-anim]', {
+      rotate: '360deg',
+      ease: 'linear',
+      duration: 23,
+      repeat: -1,
+   });
 
    // parallax animation
    gsap.to('[data-parallax-down]', {
@@ -203,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rotate: 'random(-50, 50, 15)' + 'deg',
             scale: 'random(0.6, 0.8)',
             opacity: 'random(0.3, 0.6)',
-            duration: 1.4,
+            duration: 1,
          });
          flowerTimeline.to(flower, {
             x: 'random(-10, 10)',
@@ -211,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
             rotate: 'random(-15, 15, 5)' + 'deg',
             scale: 'random(0.9, 0.95)',
             repeat: -1,
-            duration: 4,
+            duration: 2,
             yoyo: true,
          });
 
@@ -239,22 +271,144 @@ document.addEventListener('DOMContentLoaded', () => {
       });
    }
 
-   const teammateSlider = new Swiper('[data-teammate-slider]', {
+   // teammate card
+   const teammateCardList = document.querySelectorAll('[data-teammate-card]');
+   if (teammateCardList && teammateCardList.length > 0) {
+      teammateCardList.forEach((card) => {
+         const video = card.querySelector('[data-teammate-card-video]');
+         if (!video) return;
+
+         if (window.innerWidth >= 1024) {
+            video.addEventListener('mouseover', () => {
+               video.play();
+            });
+
+            video.addEventListener('mouseout', () => {
+               video.load();
+               video.pause();
+            });
+         } else {
+            ScrollTrigger.create({
+               start: 0,
+               end: 'max',
+               onUpdate: () => {
+                  if (ScrollTrigger.isInViewport(video)) {
+                     setTimeout(() => {
+                        video.play();
+                     }, 2000);
+                     video.removeAttribute('loop');
+                  } else {
+                     video.load();
+                     video.pause();
+                  }
+               },
+            });
+         }
+
+         video.addEventListener('ended', () => {
+            video.load();
+            video.pause();
+         });
+      });
+   }
+
+   const promosSlider = new Swiper('[data-promos-slider]', {
+      modules: [Navigation],
       slidesPerView: 1,
       // Navigation arrows
       navigation: {
-         nextEl: '.swiper-button-next',
-         prevEl: '.swiper-button-prev',
+         nextEl: '.btn-next-slide',
+         prevEl: '.btn-prev-slide',
+      },
+   });
+
+   const productsSlider = new Swiper('[data-products-slider]', {
+      modules: [Navigation],
+      slidesPerView: 'auto',
+      spaceBetween: 20,
+      // Navigation arrows
+      navigation: {
+         nextEl: '.btn-next-slide',
+         prevEl: '.btn-prev-slide',
+      },
+      breakpoints: {
+         // 480: {
+         //    slidesPerView: 2.2,
+         // },
+         720: {
+            slidesPerView: 3,
+            spaceBetween: 15,
+         },
+         1024: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+         },
+         1280: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+         },
+         1440: {
+            slidesPerView: 4,
+            spaceBetween: 50,
+         },
+         1920: {
+            slidesPerView: 5,
+            // spaceBetween: 25,
+         },
+      },
+   });
+
+   const teammateSlider = new Swiper('[data-teammate-slider]', {
+      modules: [Navigation],
+      slidesPerView: 1,
+      // Navigation arrows
+      navigation: {
+         nextEl: '.btn-next-slide',
+         prevEl: '.btn-prev-slide',
       },
       breakpoints: {
          1024: {
             slidesPerView: 2,
+            spaceBetween: 30,
          },
          1280: {
             slidesPerView: 3,
          },
          1920: {
             slidesPerView: 4,
+            spaceBetween: 15,
+         },
+      },
+   });
+
+   const reviewSlider = new Swiper('[data-reviews-slider]', {
+      modules: [Navigation],
+      slidesPerView: 1,
+      spaceBetween: 45,
+      // Navigation arrows
+      navigation: {
+         nextEl: '.btn-next-slide',
+         prevEl: '.btn-prev-slide',
+      },
+      breakpoints: {
+         720: {
+            slidesPerView: 2,
+         },
+         1024: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+         },
+         1280: {
+            slidesPerView: 3,
+            spaceBetween: 50,
+         },
+         1440: {
+            slidesPerView: 3,
+            spaceBetween: 60,
+         },
+         1920: {
+            slidesPerView: 4,
+            spaceBetween: 70,
          },
       },
    });
