@@ -325,6 +325,51 @@ footer {
       position: relative;
    }
 
+   &-382 {
+      --flower-width: 382px;
+      --flower-hegiht: 284px;
+      width: var(--flower-width);
+      height: var(--flower-hegiht);
+
+      @media (max-width: 1279px) {
+         --flower-width: 296px;
+         --flower-hegiht: 220px;
+      }
+
+      @media (max-width: 1023px) {
+         --flower-width: 254px;
+         --flower-hegiht: 220px;
+      }
+
+      @media (max-width: 719px) {
+         --flower-width: 140px;
+         --flower-hegiht: 100px;
+      }
+
+   }
+
+   &-357 {
+      --flower-width: 357px;
+      --flower-hegiht: 266px;
+      width: var(--flower-width);
+      height: var(--flower-hegiht);
+
+      @media (max-width: 1023px) {
+         --flower-width: 286px;
+         --flower-hegiht: 204px;
+      }
+
+      @media (max-width: 719px) {
+         --flower-width: 162px;
+         --flower-hegiht: 116px;
+      }
+
+      @media (max-width: 479px) {
+         --flower-width: 120px;
+         --flower-hegiht: 110px;
+      }
+   }
+
    &-350 {
       --flower-width: 351px;
       --flower-hegiht: 261px;
@@ -358,6 +403,18 @@ footer {
          --flower-hegiht: 150px;
       }
    }
+
+   &-300 {
+      --flower-width: 300px;
+      --flower-hegiht: 220px;
+      width: var(--flower-width);
+      height: var(--flower-hegiht);
+
+      @media (max-width: 1279px) {
+         display: none;
+      }
+   }
+
 }
 
 .promos-card {

@@ -542,6 +542,20 @@
           transform: translate(var(--translate-x), var(--translate-y));
         }
 
+        .flower-357 {
+          position: absolute;
+          top: 0;
+          left: calc(-1 * .5 * var(--flower-width));
+          z-index: 2;
+        }
+
+        .flower-300 {
+          position: absolute;
+          top: calc(-1 * .1 * var(--flower-width));
+          right: calc(-1 * .4 * var(--flower-width));
+          z-index: 2;
+        }
+
         @media (max-width: 1279px) {
           --width: 850px;
           --height: 628px;
@@ -575,6 +589,13 @@
 
         align-self: flex-end;
 
+        .flower-382 {
+          position: absolute;
+          top: -45%;
+          right: -45%;
+          z-index: 2;
+        }
+
         img {
           position: relative;
           width: var(--width);
@@ -590,6 +611,12 @@
         @media (max-width: 1439px) {
           --translate-x: -20px;
           --translate-y: -70px;
+        }
+
+        @media (max-width: 1279px) {
+          // .flower-382 {
+          //   top: calc(-1 * .2 * var(--flower-height));
+          // }
         }
 
         @media (max-width: 1023px) {

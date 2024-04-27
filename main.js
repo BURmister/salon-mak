@@ -94,6 +94,73 @@ document.addEventListener('DOMContentLoaded', () => {
       },
    });
 
+   // place section
+   gsap.from('[data-mobile-block]', {
+      yPercent: 'random(15, 30)',
+      scale: 0.95,
+      duration: 1,
+      scrollTrigger: {
+         trigger: '[data-mobile-block]',
+         start: 'top 90%',
+         end: 'bottom 90%',
+      },
+   });
+
+   gsap.from('[data-mobile-block-description] .arrow-vector', {
+      yPercent: 'random(-30, -15)',
+      rotate: 'random(-45deg, -30deg)',
+      scaleY: 0.4,
+      scaleX: 0,
+      opacity: 0.4,
+      duration: 1,
+      scrollTrigger: {
+         trigger: '[data-mobile-block-description]',
+         start: 'top 90%',
+         end: 'bottom 90%',
+      },
+   });
+
+   // workabout section
+   gsap.from('[data-workabout-beigewave]', {
+      y: 'random(230, 80)',
+      duration: 1.5,
+      scrollTrigger: {
+         trigger: '[data-workabout-beigewave]',
+         start: 'top 95%',
+         end: 'bottom 95%',
+      },
+   });
+   gsap.to('[data-workabout-beigewave] img', {
+      y: 'random(35, 50)',
+      objectPosition: `random(0, 100)% 0%`,
+      duration: 4.5,
+      ease: 'back.inOut(1)',
+      repeat: -1,
+      yoyo: true,
+   });
+
+   // global
+   const aboutworkItemList = document.querySelectorAll('[data-enter-from-scale]');
+   if (aboutworkItemList && aboutworkItemList.length > 0) {
+      aboutworkItemList.forEach((item) => {
+         const delay = item.dataset.enterFromScale ? Number(item.dataset.enterFromScale) : 0;
+         gsap.from(item, {
+            opacity: 0.5,
+            y: 'random(15px, 50px)',
+            scale: 'random(0.6, 0.8)',
+            ease: 'power4.out',
+            duration: 1,
+            delay: delay,
+            scrollTrigger: {
+               trigger: item,
+               start: 'top 90%',
+               end: 'top 90%',
+               // scrub: true,
+            },
+         });
+      });
+   }
+
    // parallax animation
    gsap.to('[data-parallax-down]', {
       yPercent: 'random(15, 23)',
