@@ -12,6 +12,11 @@
   justify-content: space-between;
   z-index: 2;
 
+  .logo {
+    width: 120px;
+    height: auto;
+  }
+
   .navlist {
     display: flex;
     justify-content: center;
@@ -434,9 +439,15 @@
     .content {
       --content-padding: 30px;
       position: relative;
-      width: calc(100% - var(--content-padding) * 2);
       padding: var(--content-padding);
+      width: calc(100% - var(--content-padding) * 2);
+      display: flex;
+      align-items: center;
       z-index: 1;
+
+      .swiper {
+        flex: 1;
+      }
 
       .biege-overlay {
         position: absolute;
@@ -454,7 +465,7 @@
       .swiper-slide {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
       }
     }
   }
@@ -990,6 +1001,23 @@
 
   .content-wrapper.slider-block {
     width: 100%;
+    display: flex;
+    align-items: center;
+
+    .swiper {
+      margin: 0 15px;
+      flex: 1;
+    }
+
+    @media (max-width: 1023px) {
+      >.btn-element {
+        display: none;
+      }
+
+      .swiper {
+        margin: 0;
+      }
+    }
   }
 }
 

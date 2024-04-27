@@ -135,6 +135,17 @@ document.addEventListener('DOMContentLoaded', () => {
             videoInPhone.play();
          }
       });
+
+      ScrollTrigger.create({
+         start: 0,
+         end: 'max',
+         onUpdate: () => {
+            if (ScrollTrigger.isInViewport(videoInPhone) && !isPlayed) {
+               isPlayed = true;
+               videoInPhone.play();
+            }
+         },
+      });
    }
 
    // workabout section
@@ -294,8 +305,14 @@ document.addEventListener('DOMContentLoaded', () => {
                onUpdate: () => {
                   if (ScrollTrigger.isInViewport(video)) {
                      setTimeout(() => {
-                        video.play();
-                     }, 2000);
+                        try {
+                           video.play();
+                        } catch (error) {
+                           console.error(error);
+                           video.load();
+                           video.pause();
+                        }
+                     }, 4000);
                      video.removeAttribute('loop');
                   } else {
                      video.load();
@@ -312,15 +329,55 @@ document.addEventListener('DOMContentLoaded', () => {
       });
    }
 
+   // const mutateSlider = (slider, prevButton, nextButton) => {
+   //    if (!slider || !prevButton || !nextButton) return console.error('3 props are required');
+   //    if (typeof prevButton === 'string') prevButton = document.querySelector(prevButton);
+   //    if (typeof nextButton === 'string') nextButton = document.querySelector(nextButton);
+
+   //    const changeButton = (button, disabled) => {
+   //       if (disabled) button.classList.add('btn-disabled');
+   //       else button.classList.remove('btn-disabled');
+   //    };
+
+   //    let isBeginning = slider.isBeginning;
+   //    let isEnd = slider.isEnd;
+
+   //    const updateSlider = () => {
+   //       slider.updateSlidesClasses();
+
+   //       const _isBeginning = slider.isBeginning;
+   //       if (isBeginning !== _isBeginning) {
+   //          isBeginning = _isBeginning;
+   //          changeButton(prevButton, _isBeginning);
+   //       }
+
+   //       const _isEnd = slider.isEnd;
+   //       if (isEnd !== _isEnd) {
+   //          isEnd = _isEnd;
+   //          changeButton(nextButton, slider.isEnd);
+   //       }
+   //    };
+
+   //    const turnSlide = (direction) => {
+   //       if (direction === 'prev') slider.slidePrev();
+   //       if (direction === 'next') slider.slideNext();
+   //    };
+
+   //    if (slider.isBeginning) changeButton(prevButton, true);
+   //    if (slider.isEnd) changeButton(nextButton, true);
+   //    prevButton.addEventListener('click', () => turnSlide('prev'));
+   //    nextButton.addEventListener('click', () => turnSlide('next'));
+   // };
+
    const promosSlider = new Swiper('[data-promos-slider]', {
       modules: [Navigation],
       slidesPerView: 1,
-      // Navigation arrows
       navigation: {
-         nextEl: '.btn-next-slide',
-         prevEl: '.btn-prev-slide',
+         nextEl: '[data-promos-slider-next]',
+         prevEl: '[data-promos-slider-prev]',
       },
    });
+   // mutateSlider(promosSlider, '[data-promos-slider-prev]', '[data-promos-slider-next]');
 
    const productsSlider = new Swiper('[data-products-slider]', {
       modules: [Navigation],
@@ -328,8 +385,8 @@ document.addEventListener('DOMContentLoaded', () => {
       spaceBetween: 20,
       // Navigation arrows
       navigation: {
-         nextEl: '.btn-next-slide',
-         prevEl: '.btn-prev-slide',
+         nextEl: '[data-products-slider-next]',
+         prevEl: '[data-products-slider-prev]',
       },
       breakpoints: {
          // 480: {
@@ -363,8 +420,8 @@ document.addEventListener('DOMContentLoaded', () => {
       slidesPerView: 1,
       // Navigation arrows
       navigation: {
-         nextEl: '.btn-next-slide',
-         prevEl: '.btn-prev-slide',
+         nextEl: '[data-teammate-slider-next]',
+         prevEl: '[data-teammate-slider-prev]',
       },
       breakpoints: {
          1024: {
@@ -387,8 +444,8 @@ document.addEventListener('DOMContentLoaded', () => {
       spaceBetween: 45,
       // Navigation arrows
       navigation: {
-         nextEl: '.btn-next-slide',
-         prevEl: '.btn-prev-slide',
+         nextEl: '[data-reviews-slider-next]',
+         prevEl: '[data-reviews-slider-prev]',
       },
       breakpoints: {
          720: {
