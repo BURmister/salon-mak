@@ -1,21 +1,16 @@
 // gsap
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import { EaselPlugin } from 'gsap/EaselPlugin';
-import { TextPlugin } from 'gsap/TextPlugin';
 
 // swiper
 import Swiper from 'swiper';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 import './style.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
-   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, EaselPlugin, TextPlugin);
+   gsap.registerPlugin(ScrollTrigger);
 
    // animation for preview beige section
    const previewWaveTimeline = gsap.timeline();
@@ -284,10 +279,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
    // teammate card
    const teammateCardList = document.querySelectorAll('[data-teammate-card]');
+   let sliderControlsHidden = false;
    if (teammateCardList && teammateCardList.length > 0) {
       teammateCardList.forEach((card) => {
          const video = card.querySelector('[data-teammate-card-video]');
          if (!video) return;
+
+         const _playVideoMobile = (video) => {
+            try {
+               video.play();
+            } catch (error) {
+               console.error(error);
+               video.load();
+               video.pause();
+            }
+
+            video.addEventListener('ended', () => {
+               video.load();
+               video.pause();
+
+               setTimeout(() => {
+                  _playVideoMobile(video);
+               }, 3000);
+            });
+         };
 
          if (window.innerWidth >= 1024) {
             video.addEventListener('mouseover', () => {
@@ -298,22 +313,20 @@ document.addEventListener('DOMContentLoaded', () => {
                video.load();
                video.pause();
             });
+
+            video.addEventListener('ended', () => {
+               video.load();
+               video.pause();
+            });
          } else {
+            video.removeAttribute('loop');
+
             ScrollTrigger.create({
                start: 0,
                end: 'max',
                onUpdate: () => {
                   if (ScrollTrigger.isInViewport(video)) {
-                     setTimeout(() => {
-                        try {
-                           video.play();
-                        } catch (error) {
-                           console.error(error);
-                           video.load();
-                           video.pause();
-                        }
-                     }, 4000);
-                     video.removeAttribute('loop');
+                     setTimeout(() => _playVideoMobile(video), 3000);
                   } else {
                      video.load();
                      video.pause();
@@ -321,11 +334,6 @@ document.addEventListener('DOMContentLoaded', () => {
                },
             });
          }
-
-         video.addEventListener('ended', () => {
-            video.load();
-            video.pause();
-         });
       });
    }
 

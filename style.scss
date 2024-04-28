@@ -693,10 +693,10 @@
             }
 
             .place-video {
-              width: calc(var(--mask-width) - 2px);
-              height: calc(var(--mask-height) - 2px);
+              width: calc(var(--mask-width) - 4px);
+              height: calc(var(--mask-height) - 4px);
               object-fit: cover;
-              transform: translate(1px, 1px);
+              transform: translate(2px, 2px);
             }
           }
 
@@ -1027,12 +1027,54 @@
   gap: 60px;
 
   .large-content-wrapper {
-    // width: calc(100% - var(--wrapper-padding) * 2);
     width: 100%;
 
-    // TODO: доделать слайдер 
-    .teammate-slider {
-      .teammate-slider-wrapper {}
+    .content-container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+      .teammate-slider {
+        flex: 1;
+        margin: 0 15px;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      width: calc(100% - 80px);
+      padding: 0 40px;
+
+      .content-container {
+        .teammate-slider {
+          margin: 0 20px;
+        }
+      }
+    }
+
+    @media (max-width: 719px) {
+      width: calc(100% - 40px);
+      padding: 0 20px;
+
+      .content-container {
+        .teammate-slider {
+          margin: 0 15px;
+        }
+      }
+    }
+
+    @media (max-width: 479px) {
+      width: 100%;
+      padding: 0;
+
+      .content-container {
+        >.btn-slider-large {
+          display: none;
+        }
+
+        .teammate-slider {
+          margin: 0;
+        }
+      }
     }
   }
 }
@@ -1106,6 +1148,12 @@
 
   @media (max-width: 719px) {
     margin-top: 50px;
+  }
+
+  @media (max-width: 479px) {
+    .large-content-wrapper {
+      --wrapper-padding: 20px;
+    }
   }
 }
 

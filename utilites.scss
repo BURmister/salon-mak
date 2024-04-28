@@ -269,6 +269,10 @@ footer {
       &:active {
          transform: scale(0.95);
       }
+
+      &.swiper-button-disabled {
+         opacity: 0.4;
+      }
    }
 
    &-brown {
@@ -319,54 +323,18 @@ footer {
 
    &-slider-large {
       --size: 52px;
-      position: absolute;
-      top: calc(50% - var(--size) * .5);
 
       width: var(--size);
       height: var(--size);
       z-index: 1;
 
-      &.btn-prev-slide {
-         left: 0;
-         right: unset;
-      }
-
-      &.btn-next-slide {
-         left: unset;
-         right: 0;
-      }
-
-
-      &::after {
-         content: unset;
+      svg {
+         width: var(--size);
+         height: var(--size);
       }
    }
 
    &-slider-arrow {
-      // --width: 14px;
-      // --height: 25px;
-      // position: absolute;
-      // top: calc(50% - var(--size) * .5);
-
-      // width: var(--width);
-      // height: var(--height);
-      // z-index: 1;
-
-      // &.btn-prev-slide {
-      //    left: 0;
-      //    right: unset;
-      // }
-
-      // &.btn-next-slide {
-      //    left: unset;
-      //    right: 0;
-      // }
-
-
-      // &::after {
-      //    content: unset;
-      // }
-
       transition: all var(--btn-transition);
 
       &:active {
@@ -376,31 +344,26 @@ footer {
 
    &-slider {
       --size: 26px;
-      // position: absolute;
-      // top: calc(50% - var(--size) * .5);
-
       width: var(--size);
       height: var(--size);
       transition: all var(--btn-transition);
-      // z-index: 1;
+
+      svg {
+         circle {
+            fill: var(--milk-bg);
+         }
+      }
 
       &.btn-prev-slide {
-         left: 0;
-         right: unset;
+         left: calc(var(--size) * -0.5);
       }
 
       &.btn-next-slide {
-         left: unset;
-         right: 0;
+         right: calc(var(--size) * -0.5);
       }
 
-      // &.btn-disabled {
-      //    opacity: 0.4;
-      // }
-
-
-      &::after {
-         content: unset;
+      &.swiper-button-disabled {
+         opacity: 0;
       }
 
       &:active {
@@ -619,6 +582,10 @@ footer {
    }
 
    @media (max-width: 1279px) {
+      &_img {
+         height: 440px;
+      }
+
       .in-card-wrapper {
          padding-left: 60px;
          max-width: 320px;
@@ -628,6 +595,10 @@ footer {
    @media (max-width: 1023px) {
       align-items: center;
 
+      &_img {
+         height: 580px;
+      }
+
       .in-card-wrapper {
          padding-left: 0;
          max-width: 320px;
@@ -635,6 +606,10 @@ footer {
    }
 
    @media (max-width: 719px) {
+      &_img {
+         height: 330px;
+      }
+
       .in-card-wrapper {
          .teammate-card_name {
             font-size: 24px;
@@ -650,15 +625,37 @@ footer {
 }
 
 .reviews-table {
+   position: relative;
    border-radius: 15px;
-   border: 1px solid var(--brown);
-   overflow: hidden;
+   z-index: 1;
+
+   &_overlay {
+      --head-height: 85.6px;
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+
+      border-radius: 15px;
+      border: 1px solid var(--brown);
+      z-index: -1;
+      overflow: hidden;
+
+      .table-head_overlay {
+         height: var(--head-height);
+         width: 100%;
+         border-radius: 15px 15px 0 0;
+      }
+   }
 
    .table-head {
       padding: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-radius: 15px 15px 0 0;
    }
 
    .table-content {
@@ -667,8 +664,19 @@ footer {
       flex-direction: column;
       gap: 30px;
 
+      .content-container {
+         width: 100%;
+         display: flex;
+         align-items: center;
+
+         .btn-slider {
+            position: absolute;
+         }
+      }
+
       .review-slider {
          width: 100%;
+         flex: 1;
 
          .swiper-slide {
             display: flex;
